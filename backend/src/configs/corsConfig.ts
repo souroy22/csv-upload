@@ -6,6 +6,7 @@ const whitelist = [
 // Configure CORS options
 export const corsOptions = {
   origin: function (origin: any, callback: any) {
+    console.log("origin", origin);
     // Check if the origin is in the whitelist or if it's a local request
     if (whitelist.includes(origin) || !origin) {
       callback(null, true);
