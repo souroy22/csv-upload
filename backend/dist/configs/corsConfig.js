@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.corsOptions = void 0;
 const whitelist = [
     "http://127.0.0.1:5500",
-    "https://ninjas-csv-upload.netlify.app/",
+    "https://ninjas-csv-upload.netlify.app",
 ];
 // Configure CORS options
 exports.corsOptions = {
