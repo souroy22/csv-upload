@@ -1,0 +1,489 @@
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+/* Resetting default styles and setting box-sizing to border-box */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base styles for the body */
+body {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  background-color: #f3f4f6;
+  position: relative;
+}
+
+#csv-table th {
+  background-color: #ebebeb;
+  position: sticky;
+  top: 0;
+}
+
+/* Styles for the heading section */
+#heading {
+  background-color: #111827;
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#heading-title {
+  color: whitesmoke;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+#heading-upload-btn {
+  background-color: #1f2937;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+/* Styles for the container section */
+.container {
+  margin: 0 auto;
+  padding: 20px;
+  display: none;
+  position: fixed;
+  width: 0;
+  height: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.confirm-popup-container {
+  margin: 0 auto;
+  padding: 20px;
+  display: none;
+  position: fixed;
+  width: 0;
+  height: 0;
+  transition: all 0.3s ease-in-out;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.confirm-popup {
+  width: 300px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin: auto;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.popup-title {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.popup-description {
+  font-size: 16px;
+}
+
+.action-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 40px;
+}
+
+#delete-button {
+  background-color: #e94043;
+  cursor: pointer;
+  color: white;
+  padding: 10px 15px;
+  width: 100px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+#cancel-button {
+  background-color: #f1f2f3;
+  color: rgb(138, 133, 133);
+  cursor: pointer;
+  padding: 10px 15px;
+  width: 100px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+/* Styles for the form container */
+#form-container {
+  border-radius: 10px;
+  z-index: 99999;
+}
+
+#close-popup-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+#close-popup {
+  font-size: 20px;
+  cursor: pointer;
+  color: rgb(72, 69, 69);
+}
+
+#upload-form {
+  display: flex;
+  gap: 20px;
+  margin: 0 auto 30px;
+  padding: 20px;
+  border: 3px dashed gray;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.upload-icon {
+  color: gray;
+  font-size: 100px;
+}
+
+#selected-file-name {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: greenyellow;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  font-size: 17px;
+}
+
+#input-label {
+  color: #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#input-label span {
+  font-weight: 600;
+  font-size: 19px;
+}
+
+#input-label button {
+  border: none;
+  color: #5256ad;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#csv-file {
+  z-index: -1;
+}
+
+#csv-file:focus + label,
+#csv-file + label:hover {
+  background-color: red;
+  transform: scale(1.09);
+  box-shadow: 0 0 20px rgb(160, 218, 160);
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#upload-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+#upload-btn:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+/* Styles for the file list table container */
+#file-list-table-container {
+  width: 60%;
+  margin: 4% auto 0;
+  padding: 20px;
+  box-shadow: 0 0 10px gray;
+  border-radius: 10px;
+}
+
+/* Styles for the CSV table container */
+#table-container {
+  width: 90%;
+  margin: 0 auto;
+  box-shadow: 0 0 10px gray;
+  margin-top: 30px;
+  border-radius: 10px;
+  height: 80svh;
+  overflow-y: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+#cross-icon-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#file-list-table-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+#table-heading {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+#table-heading-right {
+  display: flex;
+  gap: 20px;
+}
+
+#search-input {
+  border: none;
+  background-color: #d3d3d3;
+  padding: 10px 15px;
+  font-size: 17px;
+  border-radius: 10px;
+  width: 300px;
+  transition: all 0.3s ease-in-out;
+  height: 50px;
+}
+
+#search-input:focus {
+  width: 350px;
+  outline: none;
+}
+
+#search-file-input {
+  border: none;
+  background-color: #d3d3d3;
+  padding: 10px 15px;
+  font-size: 17px;
+  border-radius: 10px;
+  width: 300px;
+  transition: all 0.3s ease-in-out;
+  height: 50px;
+}
+
+#search-file-input:focus {
+  width: 350px;
+  outline: none;
+}
+
+#remove-table {
+  color: #7b7676;
+  cursor: pointer;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  transition: color 0.3s ease-in;
+}
+
+#remove-table:hover {
+  color: #403c3c;
+}
+
+#table-wrapper {
+  height: calc(100% - 100px);
+  overflow-y: scroll;
+}
+
+#table-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+#table-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#table-wrapper::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+#table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+table th,
+table td {
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ddd;
+}
+
+table tr {
+  border-bottom: 1px solid #ddd;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-heading,
+td {
+  max-width: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.fileIcon {
+  margin-right: 5px;
+}
+
+.eye-icon {
+  margin-right: 30px;
+  cursor: pointer;
+  color: gray;
+}
+
+.delete-icon {
+  cursor: pointer;
+  color: red;
+}
+
+/* Styles for pagination */
+#pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#page-number-list {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.page-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: black;
+  transition: background-color 0.3s ease-in;
+}
+
+.active-page {
+  background-color: black;
+  color: white;
+  font-weight: 700;
+}
+
+.prev-next-btn {
+  border: none;
+  background-color: #ddd;
+  height: 30px;
+  width: 60px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 25px;
+}
+
+.prev-next-btn:disabled,
+.prev-next-btn[disabled] {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>CSV Data Table</title>
+  </head>
+  <body>
+    <div id="heading">
+      <div id="heading-title">CSV Viewer</div>
+      <button id="heading-upload-btn">
+        <i class="fa-solid fa-arrow-up-from-bracket"></i> Upload CSV
+      </button>
+    </div>
+    <div class="confirm-popup-container">
+      <div class="confirm-popup">
+        <div class="popup-title">Confirm Deletion?</div>
+        <div class="popup-description">
+          Are you sure you would like to delete this file from the database.
+          This action cannot be undone.
+        </div>
+        <div class="action-container">
+          <button id="delete-button">Delete</button>
+          <button id="cancel-button">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div id="form-container">
+        <div id="close-popup-container">
+          <i class="fa-solid fa-xmark" id="close-popup"></i>
+        </div>
+        <div>
+          <div id="upload-form">
+            <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+            <div id="selected-file-name"></div>
+            <div for="file" id="input-label">
+              <span>Drag & Drop to Upload File</span>
+              <span>OR</span>
+              <button onclick="openFile()">Browse File</button>
+            </div>
+            <input type="file" name="file" id="csv-file" accept=".csv" hidden />
+          </div>
+        </div>
+        <div class="btn-container">
+          <button id="upload-btn">Upload CSV</button>
+        </div>
+      </div>
+    </div>
+    <div id="file-list-table-container">
+      <div id="file-list-table-heading">
+        <div id="table-heading">File List</div>
+        <div id="table-heading-right">
+          <input
+            type="text"
+            id="search-file-input"
+            placeholder="search files..."
+          />
+        </div>
+      </div>
+      <table id="file-list-table">
+        <thead>
+          <tr id="file-list-headers"></tr>
+        </thead>
+        <tbody id="file-list-body"></tbody>
+      </table>
+    </div>
+    <div id="table-container" class="hidden">
+      <div id="cross-icon-section">
+        <div id="table-heading">CSV Table View</div>
+        <div id="table-heading-right">
+          <input type="text" id="search-input" placeholder="search..." />
+          <i class="fa-solid fa-xmark" id="remove-table"></i>
+        </div>
+      </div>
+      <div id="table-wrapper">
+        <table id="csv-table">
+          <thead>
+            <tr id="table-headers"></tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="pagination-container"></div>
+    <div id="loading-overlay" class="loading-overlay" style="display: none">
+      <div class="spinner"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
