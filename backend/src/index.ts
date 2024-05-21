@@ -6,7 +6,6 @@ import cors from "cors";
 import multer from "multer";
 import { Readable } from "stream";
 import csv from "csv-parser";
-import fs from "fs";
 // import router from "./routers";
 import { corsOptions } from "./configs/corsConfig";
 import connectDB from "./db/dbConfig";

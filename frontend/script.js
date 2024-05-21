@@ -9,7 +9,8 @@ let filteredFilesData = [];
 let sortBy = null;
 let sortOrder = null;
 let deletingId = null;
-const MAIN_URL = "http://localhost:8000";
+// const MAIN_URL = "http://localhost:8000";
+const MAIN_URL = "https://ninjas-csv-upload.vercel.app";
 
 // Columns definition for the file list table
 const fileListTableColumns = [
