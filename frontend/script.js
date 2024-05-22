@@ -9,8 +9,14 @@ let filteredFilesData = [];
 let sortBy = null;
 let sortOrder = null;
 let deletingId = null;
-// const MAIN_URL = "http://localhost:8000";
-const MAIN_URL = "https://ninjas-csv-upload.vercel.app";
+const MAIN_URL = "http://localhost:8000/api/v1";
+// const MAIN_URL = "https://ninjas-csv-upload.vercel.app/api/v1";
+const alertMsgColorCode = {
+  SUCCESS: "#2E7D32",
+  WARNING: "#ED6C02",
+  INFO: "#0288D1",
+  ERROR: "#D32F2F",
+};
 
 // Columns definition for the file list table
 const fileListTableColumns = [
@@ -32,6 +38,7 @@ const closePopupIcon = document.getElementById("close-popup");
 const deleteButton = document.getElementById("delete-button");
 const uploadForm = document.getElementById("upload-form");
 const cancelButton = document.getElementById("cancel-button");
+const selectedFileNameSection = document.getElementById("selected-file-name");
 const container = document.getElementsByClassName("container")[0];
 const confirmPopupContainer = document.getElementsByClassName(
   "confirm-popup-container"
@@ -43,6 +50,7 @@ uploadBtn.disabled = true;
 closePopupIcon.addEventListener("click", () => {
   container.style.display = "none";
   fileInput.value = "";
+  selectedFileNameSection.innerHTML = "";
 });
 
 uploadForm.addEventListener("drop", (event) => {
@@ -52,7 +60,7 @@ uploadForm.addEventListener("drop", (event) => {
   if (file && file.name.endsWith(".csv")) {
     uploadBtn.disabled = false;
   }
-  const selectedFileNameSection = document.getElementById("selected-file-name");
+
   const crossIcon = document.createElement("i");
   crossIcon.className = "fa-solid fa-xmark unselect-icon";
   crossIcon.id = "unselect-icon";
@@ -69,24 +77,28 @@ uploadForm.addEventListener("drop", (event) => {
 
 uploadForm.addEventListener("dragover", (event) => {
   event.preventDefault();
-  // console.log("event", event.target);
 });
 
 deleteButton.addEventListener("click", async () => {
   showLoadingOverlay(true);
-  if (deletingId !== null) {
-    await fetch(`${MAIN_URL}/file/${deletingId}`, {
-      method: "DELETE",
-    });
+  try {
+    if (deletingId !== null) {
+      await fetch(`${MAIN_URL}/file/${deletingId}`, {
+        method: "DELETE",
+      });
+      files = files.filter((file) => file.id !== deletingId);
+      filteredFilesData = filteredFilesData.filter(
+        (file) => file.id !== deletingId
+      );
+      deletingId = null;
+      confirmPopupContainer.style.display = "none";
+      confirmPopupContainer.style.width = "0";
+      populateFileListTable(filteredFilesData);
+      showNotification("File successfully deleted", "SUCCESS");
+    }
+  } catch (error) {
+    showNotification(error.message, "ERROR");
   }
-  files = files.filter((file) => file.id !== deletingId);
-  filteredFilesData = filteredFilesData.filter(
-    (file) => file.id !== deletingId
-  );
-  deletingId = null;
-  confirmPopupContainer.style.display = "none";
-  confirmPopupContainer.style.width = "0";
-  populateFileListTable(filteredFilesData);
   showLoadingOverlay(false);
 });
 
@@ -149,6 +161,35 @@ async function onLoad() {
   }
   showLoadingOverlay(false);
 }
+
+function showNotification(
+  msg = "This is a sample msg",
+  type = "SUCCESS",
+  timer = 3000
+) {
+  const alertElement = document.querySelector(".alert");
+  const msgContainer = document.querySelector(".msg");
+  alertElement.style.background =
+    alertMsgColorCode[type] || alertMsgColorCode["INFO"];
+  alertElement.style.borderColor =
+    alertMsgColorCode[type] || alertMsgColorCode["INFO"];
+  msgContainer.textContent = msg;
+  alertElement.classList.add("show");
+  alertElement.classList.remove("hide");
+  alertElement.classList.add("showAlert");
+
+  setTimeout(function () {
+    alertElement.classList.remove("show");
+    alertElement.classList.add("hide");
+    alertElement.classList.remove("showAlert");
+  }, timer);
+}
+
+document.querySelector(".close-btn").addEventListener("click", function () {
+  let alertElement = document.querySelector(".alert");
+  alertElement.classList.remove("show");
+  alertElement.classList.add("hide");
+});
 
 // Populate the file list table with data
 function populateFileListTable(rows) {
@@ -338,6 +379,7 @@ async function uploadFile() {
     if (!response.ok) {
       throw new Error("Failed to upload file.");
     }
+    showNotification("File successfully uploaded!", "SUCCESS");
     files.push(data);
     filteredFilesData.push(data);
     populateFileListTable(filteredFilesData);
@@ -348,7 +390,7 @@ async function uploadFile() {
     // uploadBtn.style.display = "none";
   } catch (error) {
     console.error("Error uploading file:", error);
-    alert("Failed to upload file.");
+    showNotification(error.message, "ERROR");
   }
   showLoadingOverlay(false);
 }
@@ -367,6 +409,7 @@ async function viewFileData(fileId) {
     addPagination();
   } catch (error) {
     console.error("Error viewing file data:", error);
+    showNotification(error.message, "ERROR");
   }
   showLoadingOverlay(false);
 }
@@ -491,7 +534,7 @@ function populateTable() {
       } else {
         sortOrder = true;
       }
-      filteredData.rows = JSON.parse(JSON.stringify(result.rows)).sort(
+      filteredData.rows = JSON.parse(JSON.stringify(filteredData.rows)).sort(
         customSort
       );
       populateTable();
