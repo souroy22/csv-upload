@@ -359,12 +359,14 @@ async function uploadFile() {
   showLoadingOverlay(true);
   const file = fileInput.files[0];
   if (!file) {
-    alert("Please select a file.");
+    showLoadingOverlay(false);
+    showNotification("Please select a file.", "ERROR");
     return;
   }
 
   if (!file.name.endsWith(".csv")) {
-    alert("Please upload a CSV file.");
+    showLoadingOverlay(false);
+    showNotification("Please upload a CSV file.", "ERROR");
     return;
   }
 
