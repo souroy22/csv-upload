@@ -258,6 +258,7 @@ function populateFileListTable(rows) {
       td.appendChild(deleteIcon);
 
       eyeIcon.addEventListener("click", async () => {
+        paginationContainer.style.display = "flex";
         await viewFileData(rowData.id);
       });
 
