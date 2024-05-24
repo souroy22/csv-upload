@@ -258,7 +258,6 @@ function populateFileListTable(rows) {
       td.appendChild(deleteIcon);
 
       eyeIcon.addEventListener("click", async () => {
-        paginationContainer.style.display = "flex";
         await viewFileData(rowData.id);
       });
 
@@ -545,6 +544,7 @@ function populateTable() {
     thDiv.appendChild(sortArrowIcon);
     th.appendChild(thDiv);
     tableHeadersRow.appendChild(th);
+    paginationContainer.style.display = "flex";
   });
 
   if (!rows.length) {
