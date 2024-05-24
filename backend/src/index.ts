@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import cors from "cors";
-import router from "./routers";
+import routers from "./routers";
 import { corsOptions } from "./configs/corsConfig";
 import connectDB from "./db/dbConfig";
 
@@ -32,9 +32,7 @@ app.get("/", (_: Request, res: Response) => {
   return res.status(200).json({ msg: "Sucessfully running" });
 });
 
-app.use("/api/v1", router);
-
-// app.use("/api/v1", router);
+app.use("/api/v1", routers);
 
 app.listen(parseInt(PORT, 10), `0.0.0.0`, () => {
   console.log(`Server is running on PORT: ${PORT}`);

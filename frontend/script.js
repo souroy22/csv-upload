@@ -9,8 +9,8 @@ let filteredFilesData = [];
 let sortBy = null;
 let sortOrder = null;
 let deletingId = null;
-// const MAIN_URL = "http://localhost:8000/api/v1";
-const MAIN_URL = "https://ninjas-csv-upload.vercel.app/api/v1";
+const MAIN_URL = "http://localhost:8000/api/v1";
+// const MAIN_URL = "https://ninjas-csv-upload.vercel.app/api/v1";
 const alertMsgColorCode = {
   SUCCESS: "#2E7D32",
   WARNING: "#ED6C02",

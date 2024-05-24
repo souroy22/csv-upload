@@ -1,18 +1,17 @@
 import express from "express";
-
 import multer from "multer";
 import uploadControllers from "../controllers/uploadControllers";
 
-const router = express.Router();
+const routers = express.Router();
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/upload", upload.single("file"), uploadControllers.uploadFile);
+routers.get("/files", uploadControllers.getFilesName);
 
-router.get("/file/:id", uploadControllers.getFileById);
+routers.post("/upload", upload.single("file"), uploadControllers.uploadFile);
 
-router.delete("/file/:id", uploadControllers.deleteFile);
+routers.get("/file/:id", uploadControllers.getFileById);
 
-router.get("/files", uploadControllers.getFilesName);
+routers.delete("/file/:id", uploadControllers.deleteFile);
 
-export default router;
+export default routers;
